@@ -57,6 +57,19 @@ function App() {
     setIsToastOpen(false);
   };
 
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem("todos"));
+    console.log(todos);
+    
+    if (todos && todos.length > 0) {
+      setTodos(todos);
+    }
+  }, []);
+
+  useEffect(()=>{
+    localStorage.setItem("todos",JSON.stringify(todos));
+  },[todos])
+
   return (
     <TodoContext.Provider value={{ todos, createTodo, updateTodo, deleteTodo, toggleStatus, errorMessage, setErrorMessage }}>
       <Toast message={toastMessage} isOpen={isToastOpen} onClose={hideToast} />
